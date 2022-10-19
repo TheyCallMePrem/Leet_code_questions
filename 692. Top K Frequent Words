@@ -1,0 +1,80 @@
+/**
+ * @param {string[]} words
+ * @param {number} k
+ * @return {string[]}
+ */
+var topKFrequent = function(words, k) {
+    if (words.length === 0) {
+    return {};
+  } 
+    word_dict={};
+    for (var i=0; i < words.length; i++) {
+        var word=words[i];
+        // console.log(word);
+        if(word_dict[word]===undefined){
+            word_dict[word]=1;
+        }
+        else{
+            word_dict[word]+=1;
+        }
+    }
+    
+    let sortable = [];
+    for (var element in word_dict) {
+        sortable.push([element, word_dict[element]]);
+    }
+    sortable.sort(function(a, b) {
+        return a[1] - b[1];
+    });
+    
+    console.log(sortable);
+    sortable.reverse();
+    // var temp=[];
+    console.log("sortable=");
+    console.log(sortable);
+    console.log(sortable.length);
+    var temp={};
+    for(let i=0;i<sortable.length;i++){
+        let current=sortable[i]
+        console.log("In loppppp==");
+        console.log(current);
+        if(temp[current[1]] === undefined){
+            temp[current[1]]=[];
+            temp[current[1]].push(current[0]);
+        }
+        else{
+            temp[current[1]].push(current[0]);
+            temp[current[1]].sort();
+        }
+    }
+    let sorr = [];
+    for (var element in temp) {
+        sorr.push([element, temp[element]]);
+    }
+    sorr.sort(function(a, b) {
+        return a[1] - b[1];
+    });
+    sorr.reverse();
+   // temp.sort();
+    console.log("sorr");
+    console.log(sorr);
+    var counter=0;
+    var result=[];
+    console.log(sorr);
+    // console.log(sorr[0]);
+    for(let i=0;i<sorr.length;i++){
+        console.log(sorr[i]);
+        for(let j=0;j<sorr[i][1].length;j++){
+            console.log(sorr[i][1][j]);
+            result.push(sorr[i][1][j]);
+            counter+=1;
+        }
+    }
+    console.log(result);
+    var final=[];
+    for(let i=0;i<k;i++){
+        final.push(result[i]);
+    }
+    return final
+    // console.log(result);
+};
